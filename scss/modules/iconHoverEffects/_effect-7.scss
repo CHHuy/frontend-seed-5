@@ -2,9 +2,15 @@
 @mixin hi-icon-effect-7($color, $background-color) {
   .hi-icon {
     box-shadow: 0 0 0 2px rgba($background-color, 1);
-    -webkit-transition: background 0.2s, color 0.2s;
-    -moz-transition: background 0.2s, color 0.2s;
-    transition: background 0.2s, color 0.2s;
+    -webkit-transition:
+      background 0.2s,
+      color 0.2s;
+    -moz-transition:
+      background 0.2s,
+      color 0.2s;
+    transition:
+      background 0.2s,
+      color 0.2s;
 
     :hover {
       color: $color;

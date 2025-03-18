@@ -14,17 +14,29 @@
   background: #fff;
   content: '';
   opacity: 0.2;
-  -webkit-transition: opacity 0.3s, height 0.3s;
-  -moz-transition: opacity 0.3s, height 0.3s;
-  transition: opacity 0.3s, height 0.3s;
+  -webkit-transition:
+    opacity 0.3s,
+    height 0.3s;
+  -moz-transition:
+    opacity 0.3s,
+    height 0.3s;
+  transition:
+    opacity 0.3s,
+    height 0.3s;
 }
 
 .cl-effect-9 a::after {
   top: 100%;
   opacity: 0;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-  transition: transform 0.3s, opacity 0.3s;
+  -webkit-transition:
+    -webkit-transform 0.3s,
+    opacity 0.3s;
+  -moz-transition:
+    -moz-transform 0.3s,
+    opacity 0.3s;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
   -webkit-transform: translateY(-10px);
   -moz-transform: translateY(-10px);
   transform: translateY(-10px);
@@ -45,12 +57,19 @@
   text-transform: none;
   font-style: italic;
   font-size: 0.75em;
-  font-family: Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua',
-    Georgia, serif;
+  font-family:
+    Palatino, 'Palatino Linotype', 'Palatino LT STD', 'Book Antiqua', Georgia,
+    serif;
   opacity: 0;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-  transition: transform 0.3s, opacity 0.3s;
+  -webkit-transition:
+    -webkit-transform 0.3s,
+    opacity 0.3s;
+  -moz-transition:
+    -moz-transform 0.3s,
+    opacity 0.3s;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
   -webkit-transform: translateY(-100%);
   -moz-transform: translateY(-100%);
   transform: translateY(-100%);

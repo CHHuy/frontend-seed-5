@@ -1,18 +1,18 @@
 const gulp = require('gulp')
-const sourcemaps = require('gulp-sourcemaps')
+// const sourcemaps = require('gulp-sourcemaps')
 const babel = require('gulp-babel')
 const concat = require('gulp-concat')
 const sass = require('gulp-sass')(require('sass'))
 const uglify = require('gulp-uglify')
 const rename = require('gulp-rename')
 // const cleanCSS = require('gulp-clean-css')
-const newer = require('gulp-newer')
-const gulpClean = require('gulp-clean')
+// const newer = require('gulp-newer')
+// const gulpClean = require('gulp-clean')
 const plumber = require('gulp-plumber')
 const size = require('gulp-size')
 const purgecss = require('gulp-purgecss')
 
-const browserSync = require('browser-sync');
+const browserSync = require('browser-sync')
 const server = browserSync.create()
 
 const paths = {
@@ -33,9 +33,7 @@ const paths = {
     dest: 'dist/'
   },
   scriptsCore: {
-    src: [
-      'third_party/modernizr.min.js'
-    ],
+    src: ['third_party/modernizr.min.js'],
     dest: 'dist/'
   },
   images: {
@@ -48,89 +46,102 @@ const paths = {
  * and you can use all packages available on npm, but it must return either a
  * Promise, a Stream or take a callback and call it
  */
-function clean() {
-  // You can use multiple globbing patterns as you would with `gulp.src`,
-  // for example if you are using del 2.0 or above, return its promise
-  return gulp.src(['dist', 'css'], { allowEmpty: true })
-    .pipe(gulpClean())
-}
+// function clean() {
+//   // You can use multiple globbing patterns as you would with `gulp.src`,
+//   // for example if you are using del 2.0 or above, return its promise
+//   return gulp.src(['dist', 'css'], { allowEmpty: true }).pipe(gulpClean())
+// }
 
 /*
  * Define our tasks using plain functions
  */
 function styles() {
-  return gulp
-    .src(paths.styles.src)
-    .pipe(sourcemaps.init())
-    .pipe(sass({ outputStyle: 'expanded' }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.styles.dest))
-    .pipe(server.reload({stream: true}))
+  return (
+    gulp
+      .src(paths.styles.src)
+      // .pipe(sourcemaps.init())
+      .pipe(sass({ outputStyle: 'expanded' }))
+      // .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest(paths.styles.dest))
+      .pipe(server.reload({ stream: true }))
+  )
 }
 
 /*
  * Define our tasks using plain functions
  */
 function stylesMin() {
-  return gulp
-    .src(paths.stylesMin.src)
-    .pipe(sass({ outputStyle: 'compressed' }))
-    // .pipe(cleanCSS()) // pass in options to the stream
-    .pipe(
-      rename({
-        basename: 'app',
-        suffix: '.min'
-      })
-    )
-    .pipe(size())
-    .pipe(gulp.dest(paths.stylesMin.dest))
-    .pipe(server.reload({stream: true}))
+  return (
+    gulp
+      .src(paths.stylesMin.src)
+      .pipe(sass({ outputStyle: 'compressed' }))
+      // .pipe(cleanCSS()) // pass in options to the stream
+      .pipe(
+        rename({
+          basename: 'app',
+          suffix: '.min'
+        })
+      )
+      .pipe(size())
+      .pipe(gulp.dest(paths.stylesMin.dest))
+      .pipe(server.reload({ stream: true }))
+  )
 }
 
 function unusedCSS() {
   return gulp
     .src('dist/**/*.css')
-    .pipe(purgecss({
-      content: ['./*.html']
-    }))
+    .pipe(
+      purgecss({
+        content: ['./*.html']
+      })
+    )
     .pipe(gulp.dest('dist'))
 }
 
 function scripts() {
-  return gulp
-    .src(paths.scripts.src, { sourcemaps: true })
-    .pipe(plumber())
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['@babel/env']
-    }))
-    .pipe(uglify())
-    .pipe(concat('app.min.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(paths.scripts.dest))
-    .pipe(server.reload({stream: true}))
+  return (
+    gulp
+      .src(paths.scripts.src, { sourcemaps: true })
+      .pipe(plumber())
+      // .pipe(sourcemaps.init())
+      .pipe(
+        babel({
+          presets: ['@babel/env']
+        })
+      )
+      .pipe(uglify())
+      .pipe(concat('app.min.js'))
+      // .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest(paths.scripts.dest))
+      .pipe(server.reload({ stream: true }))
+  )
 }
 
 function scriptsCore() {
-  return gulp
-    .src(paths.scriptsCore.src, { sourcemaps: false })
-    .pipe(plumber())
-    // .pipe(babel())
-    .pipe(uglify())
-    .pipe(concat('core.min.js'))
-    .pipe(size())
-    .pipe(gulp.dest(paths.scriptsCore.dest))
-    .pipe(server.reload({stream: true}))
+  return (
+    gulp
+      .src(paths.scriptsCore.src, { sourcemaps: false })
+      .pipe(plumber())
+      // .pipe(babel())
+      .pipe(uglify())
+      .pipe(concat('core.min.js'))
+      .pipe(size())
+      .pipe(gulp.dest(paths.scriptsCore.dest))
+      .pipe(server.reload({ stream: true }))
+  )
 }
 
 function images() {
-  return gulp
-    .src(paths.images.src)
-    .pipe(plumber())
-    .pipe(newer(paths.images.dest)) // pass through newer images only
-    .pipe(size())
-    .pipe(gulp.dest(paths.images.dest))
-    .pipe(server.reload({stream: true}))
+  return (
+    gulp
+      .src(paths.images.src, {encoding: false})
+      .pipe(plumber())
+      // .pipe(newer(paths.images.dest)) // pass through newer images only
+      .pipe(size())
+      .pipe(gulp.dest(paths.images.dest))
+      .pipe(server.reload({ stream: true }))
+  )
 }
 
 function serve() {
@@ -163,7 +174,7 @@ function watch() {
 /*
  * You can use CommonJS `exports` module notation to declare tasks
  */
-exports.clean = clean
+// exports.clean = clean
 exports.styles = styles
 exports.stylesMin = stylesMin
 exports.unusedCSS = unusedCSS
@@ -177,7 +188,7 @@ exports.serve = serve
  * Specify if tasks run in series or parallel using `gulp.series` and `gulp.parallel`
  */
 const build = gulp.series(
-  clean,
+  // clean,
   gulp.parallel(styles, stylesMin, scripts, scriptsCore, images),
   unusedCSS
 )
@@ -185,7 +196,7 @@ const build = gulp.series(
 /*
  * You can still use `gulp.task` to expose tasks
  */
-gulp.task('clean', clean)
+// gulp.task('clean', clean)
 /*
  * You can still use `gulp.task` to expose tasks
  */
